@@ -1,0 +1,548 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NLOC.Core</name>
+    </assembly>
+    <members>
+        <member name="M:NLOC.Core.Parsers.LineParser.ParseNextLine(System.String)">
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="line"/> is null.
+            </exception>
+        </member>
+        <member name="T:NLOC.Core.CountingResult">
+            <summary>
+            Contains counting result informations.
+            </summary>
+        </member>
+        <member name="M:NLOC.Core.CountingResult.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLOC.Core.CountingResult"/> class
+            with the specified line counts.
+            </summary>
+            <param name="totalLines">The total number of lines. (LOC) </param>
+            <param name="codeLines">The total number of code lines. (SLOC)</param>
+            <param name="commentLines">The total number of comment lines. (CLOC)</param>
+            <param name="blankLines">The total number of blank lines. (BLOC)</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+              <paramref name="totalLines"/> is less than 0.-or-
+              <paramref name="codeLines"/> is less than 0 or greater than 
+              <paramref name="totalLines"/>.-or-
+              <paramref name="commentLines"/> is less than 0 or greater than 
+              <paramref name="totalLines"/>.-or-
+              <paramref name="blankLines"/> is less than 0 or greater than 
+              <paramref name="totalLines"/>.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.CountingResult.Serialize(System.Xml.XmlElement)">
+            <summary>
+            Serializes counting informations.
+            </summary>
+            <param name="element">An <see cref="T:System.Xml.XmlElement"/> node 
+            used to write counting informations.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="element"/> is null.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.CountingResult.ToString">
+            <summary>
+            Returns a string that represents the current <see cref="T:NLOC.Core.CountingResult"/>.
+            </summary>
+            <returns>A string that represents the current <see cref="T:NLOC.Core.CountingResult"/>.
+            </returns>
+        </member>
+        <member name="P:NLOC.Core.CountingResult.TotalLines">
+            <summary>Gets the total number of lines.</summary>
+        </member>
+        <member name="P:NLOC.Core.CountingResult.CodeLines">
+            <summary>Gets the total number of code lines.</summary>
+        </member>
+        <member name="P:NLOC.Core.CountingResult.CommentLines">
+            <summary>Gets the total number of comment lines.</summary>
+        </member>
+        <member name="P:NLOC.Core.CountingResult.BlankLines">
+            <summary>Gets the total number of blank lines.</summary>
+        </member>
+        <member name="P:NLOC.Core.CountingResult.PercentageOfCodeLines">
+            <summary>Gets the percentage of code lines.</summary>
+        </member>
+        <member name="P:NLOC.Core.CountingResult.PercentageOfCommentLines">
+            <summary>Gets the percentage of comment lines.</summary>
+        </member>
+        <member name="P:NLOC.Core.CountingResult.PercentageOfBlankLines">
+            <summary>Gets the percentage of blank lines.</summary>
+        </member>
+        <member name="T:NLOC.Core.FileSet">
+            <summary>
+            Represents a file handler class.
+            </summary>
+        </member>
+        <member name="T:NLOC.Core.IFileHandler">
+            <summary>
+            Represents a source file collector interface.
+            </summary>
+        </member>
+        <member name="M:NLOC.Core.IFileHandler.GenerateXmlReport">
+            <summary>
+            Generates an XML report document that represents all the 
+            informations of a succesful counting.
+            </summary>
+            <returns>An XML document containing report informations.</returns>
+        </member>
+        <member name="P:NLOC.Core.IFileHandler.Projects">
+            <summary>
+            Gets the collection of the known projects.
+            </summary>
+        </member>
+        <member name="P:NLOC.Core.IFileHandler.FileCount">
+            <summary>
+            Gets the total number of source files.
+            </summary>
+        </member>
+        <member name="P:NLOC.Core.IFileHandler.Report">
+            <summary>
+            Gets or sets the results of a successful counting.
+            </summary>
+            <value>The <see cref="T:NLOC.Core.CountingResult"/> object of a 
+            successful counting or null.</value>
+        </member>
+        <member name="M:NLOC.Core.FileSet.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLOC.Core.FileSet"/> class.
+            </summary>
+        </member>
+        <member name="M:NLOC.Core.FileSet.Clear">
+            <summary>
+            Clears all the file and project informations.
+            </summary>
+        </member>
+        <member name="M:NLOC.Core.FileSet.GetFiles(System.String,System.Boolean)">
+            <exception cref="T:System.ArgumentException">
+            <paramref name="pathPattern"/> is invalid or cannot be accessed.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddFile(System.String)">
+            <summary>
+            Adds the file(s) to the default project.
+            </summary>
+            <param name="filePath">The path of the file(s) to be added.
+            The file name can contain wildcards optionally.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="filePath"/> is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="filePath"/> is invalid.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddFile(System.String,System.String)">
+            <summary>
+            Adds the file(s) to the project with the specified name.
+            </summary>
+            <param name="filePath">The path of the file(s) to be added.
+            The file name can contain wildcards optionally.</param>
+            <param name="projectName">The name of the target project.
+            If the <paramref name="projectName"/> is null or empty, 
+            the file will be added to the default project.
+            If the <paramref name="projectName"/> is unknown, a new 
+            project will be created with the specified name.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="filePath"/> is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="filePath"/> is invalid or cannot be accessed.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddFile(System.String,NLOC.Core.Project)">
+            <exception cref="T:System.ArgumentException">
+            <paramref name="filePath"/> is invalid or cannot be accessed.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddFilesRecursively(System.String)">
+            <summary>
+            Adds the files to the defautl project.
+            </summary>
+            <param name="path">The top directory path with the file name pattern.
+            The file name in the path can contains wildcards optionally.</param>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="path"/> is invalid or cannot be accessed.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddFilesRecursively(System.String,System.String)">
+            <summary>
+            Adds the files to the project with the specified name.
+            </summary>
+            <param name="path">The top directory path with the file name pattern.
+            The file name of the path can contains wildcards optionally.</param>
+            <param name="projectName">The name of the target project.
+            If the <paramref name="projectName"/> is null or empty, the file will 
+            be added to the default project. If the <paramref name="projectName"/> 
+            is unknown, a new project will be created with the specified name.</param>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="path"/> is invalid or cannot be accessed.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddFiles(System.String,System.Boolean,NLOC.Core.Project)">
+            <exception cref="T:System.ArgumentException">
+            <paramref name="path"/> is invalid or cannot be accessed.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.CreateProjectIfNew(System.String)">
+            <exception cref="T:System.ArgumentException">
+            <paramref name="projectName"/> is null or empty string.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddProjectFile(System.String)">
+            <exception cref="T:System.ArgumentException">
+            <paramref name="projectFile"/> is invalid or cannot be accessed.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddProjectFiles(System.String)">
+            <exception cref="T:System.ArgumentException">
+            <paramref name="solutionPath"/> is invalid or cannot be accessed.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddProject(System.String)">
+            <summary>
+            Adds the Visual Studio project file(s) containing source file informations.
+            </summary>
+            <param name="projectPath">The file path of the project file(s).
+            The file name of the path can contain wildcards optionally.</param>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="projectPath"/> is invalid or cannot be accessed.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddSolutionFiles(System.String)">
+            <exception cref="T:System.ArgumentException">
+            <paramref name="solutionPath"/> is invalid or cannot be accessed.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddSolution(System.String)">
+            <summary>
+            Adds the Visual Studio solution file(s) containing project file informations.
+            </summary>
+            <param name="solutionPath">The file path of the solution file(s).
+            The file name of the path can contain wildcards optionally.</param>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="solutionPath"/> is invalid or cannot be accessed.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.AddExludePattern(System.String)">
+            <summary>
+            Adds a file name pattern with optionally wildcards to exclude specific files.
+            </summary>
+            <remarks>For removing the files the <see cref="M:NLOC.Core.FileSet.ValidateExcludePatterns"/>
+            must be invoked after the patterns are specified.</remarks>
+            <param name="pattern">The file name pattern.</param>
+        </member>
+        <member name="M:NLOC.Core.FileSet.ValidateExcludePatterns">
+            <summary>
+            Removes every file matching at least one of the exclusion patterns.
+            </summary>
+            <remarks>This method must be invoked after adding the patterns.</remarks>
+        </member>
+        <member name="M:NLOC.Core.FileSet.GenerateXmlReport">
+            <summary>
+            Generates an XML report document that represents all the 
+            informations of a succesful counting.
+            </summary>
+            <remarks>A DTD description will be added to the document.
+            If the document is created before the counting succeeds, 
+            the document will be missing relevant report elements.</remarks>
+            <returns>An XML document containing report informations.</returns>
+            <exception cref="T:System.InvalidOperationException">
+            No input file has been added.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.FileSet.ToString">
+            <summary>
+            Returns a string that represents the current <see cref="T:NLOC.Core.FileSet"/>.
+            </summary>
+            <returns>A string that represents the current <see cref="T:NLOC.Core.FileSet"/>.
+            </returns>
+        </member>
+        <member name="P:NLOC.Core.FileSet.Projects">
+            <summary>
+            Gets the collection of the known projects.
+            </summary>
+        </member>
+        <member name="P:NLOC.Core.FileSet.FileCount">
+            <summary>
+            Gets the total number of source files.
+            </summary>
+        </member>
+        <member name="P:NLOC.Core.FileSet.Report">
+            <summary>
+            Gets or sets the results of a successful counting.
+            </summary>
+            <value>The <see cref="T:NLOC.Core.CountingResult"/> object of a 
+            successful counting or null.</value>
+        </member>
+        <member name="T:NLOC.Core.InvalidFileException">
+            <summary>
+            The exception that is thrown when a <see cref="P:NLOC.Core.InvalidFileException.SourceFile"/> object 
+            contains invalid file informations.
+            </summary>
+        </member>
+        <member name="M:NLOC.Core.InvalidFileException.#ctor(NLOC.Core.SourceFile)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLOC.Core.InvalidFileException"/> 
+            class with a specified source file.
+            </summary>
+            <param name="file">The source file that caused the exception.</param>
+        </member>
+        <member name="M:NLOC.Core.InvalidFileException.#ctor(NLOC.Core.SourceFile,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLOC.Core.InvalidFileException"/> 
+            class with a specified source file and error message.
+            </summary>
+            <param name="file">The source file that caused the exception.</param>
+            <param name="message"></param>
+        </member>
+        <member name="M:NLOC.Core.InvalidFileException.#ctor(NLOC.Core.SourceFile,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLOC.Core.InvalidFileException"/> 
+            class with a specified source file and a reference to the inner 
+            exception that is the cause of this exception.
+            </summary>
+            <param name="file">The source file that caused the exception.</param>
+            <param name="inner">The exception that is the cause of the current 
+            exception. If the inner parameter is not null, the current exception 
+            is raised in a catch block that handles the inner exception.</param>
+        </member>
+        <member name="M:NLOC.Core.InvalidFileException.#ctor(NLOC.Core.SourceFile,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLOC.Core.InvalidFileException"/> 
+            class with a specified file and error message and a reference to the 
+            inner exception that is the cause of this exception.
+            </summary>
+            <param name="file">The source file that caused the exception.</param>
+            <param name="message">The error message that explains the reason for 
+            the exception.</param>
+            <param name="inner">The exception that is the cause of the current 
+            exception. If the inner parameter is not null, the current exception 
+            is raised in a catch block that handles the inner exception.</param>
+        </member>
+        <member name="P:NLOC.Core.InvalidFileException.SourceFile">
+            <summary>
+            Gets the source file that caused the exception.
+            </summary>
+        </member>
+        <member name="T:NLOC.Core.LineCounter">
+            <summary>
+            Represents a counter class for counting the source lines and generating 
+            report informations.
+            </summary>
+        </member>
+        <member name="M:NLOC.Core.LineCounter.#ctor(NLOC.Core.IFileHandler)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLOC.Core.LineCounter"/> class 
+            with the specified file set.
+            </summary>
+            <param name="fileSet">A <see cref="T:NLOC.Core.IFileHandler"/> object that 
+            contains essential project and file informations.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="fileSet"/> is null.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.LineCounter.Count">
+            <summary>
+            Counts the required statistical data about the files and projects, and 
+            generates <see cref="T:NLOC.Core.CountingResult"/> objects from the results.
+            </summary>
+            <exception cref="T:NLOC.Core.InvalidFileException">
+            A source file is missing or has invalid extension.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.LineCounter.ParseFile(NLOC.Core.SourceFile)">
+            <exception cref="T:NLOC.Core.InvalidFileException">
+            <paramref name="file"/>'s extension is unknown and cannot be parsed.-or-
+            <paramref name="file"/> could not be loaded.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.LineCounter.GetParser(System.String)">
+            <exception cref="T:System.ArgumentException">
+            <paramref name="extension"/> is unknown.
+            </exception>
+        </member>
+        <member name="T:NLOC.Core.Project">
+            <summary>
+            Represents a named group that contains related source files.
+            </summary>
+        </member>
+        <member name="M:NLOC.Core.Project.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLOC.Core.Project"/> class with 
+            the specified name.
+            </summary>
+            <param name="name">The name of the project. It cannot be null or 
+            empty string.</param>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="name"/> is null or empty string.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.Project.AddFile(NLOC.Core.SourceFile)">
+            <summary>
+            Adds a source file to the project if it the project does not 
+            yet contain a similar file.
+            </summary>
+            <param name="file">The file to be added. If the 
+            <paramref name="file"/> is null, nothing happens.</param>
+        </member>
+        <member name="M:NLOC.Core.Project.Contains(NLOC.Core.SourceFile)">
+            <summary>
+            Determines whether the project has a similar file.
+            </summary>
+            <param name="file">The file to locate in the project.</param>
+            <returns>true if the file is found in the project; otherwise, 
+            false.</returns>
+        </member>
+        <member name="M:NLOC.Core.Project.Find(NLOC.Core.SourceFile)">
+            <summary>
+            Returns a similar file containing by the project.
+            </summary>
+            <param name="file">The file to locate in the project.</param>
+            <returns>A <see cref="T:NLOC.Core.SourceFile"/> object of the project that is 
+            similar to the given <paramref name="file"/> or null if the project 
+            does not contain such file.</returns>
+        </member>
+        <member name="M:NLOC.Core.Project.Remove(NLOC.Core.SourceFile)">
+            <summary>
+            Removes the file from the project.
+            </summary>
+            <param name="file">The file to remove from the project.</param>
+            <returns>true if the file is successfully removed; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:NLOC.Core.Project.ExcludeFiles(System.Text.RegularExpressions.Regex)">
+            <summary>
+            Excludes every file matching the pattern.
+            </summary>
+            <param name="pattern">A <see cref="T:System.Text.RegularExpressions.Regex"/> pattern for the file's 
+            name.</param>
+            <returns>The count of the removed files.</returns>
+        </member>
+        <member name="M:NLOC.Core.Project.Serialize(System.Xml.XmlElement)">
+            <summary>
+            Serializes counting informations.
+            </summary>
+            <param name="element">An <see cref="T:System.Xml.XmlElement"/> node 
+            used to write counting informations.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="element"/> is null.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.Project.ToString">
+            <summary>
+            Returns the name of the project.
+            </summary>
+            <returns>The name of the project.</returns>
+        </member>
+        <member name="P:NLOC.Core.Project.Name">
+            <summary>
+            Gets the name of the project.
+            </summary>
+        </member>
+        <member name="P:NLOC.Core.Project.Files">
+            <summary>
+            Gets the collection of the files contained by the project. 
+            </summary>
+        </member>
+        <member name="P:NLOC.Core.Project.FileCount">
+            <summary>
+            Gets the total number of source files.
+            </summary>
+        </member>
+        <member name="P:NLOC.Core.Project.Report">
+            <summary>
+            Gets or sets the results of a successful counting.
+            </summary>
+            <value>The <see cref="T:NLOC.Core.CountingResult"/> object of a 
+            successful counting or null.</value>
+        </member>
+        <member name="T:NLOC.Core.SourceFile">
+            <summary>
+            Represents a source file.
+            </summary>
+        </member>
+        <member name="M:NLOC.Core.SourceFile.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLOC.Core.SourceFile"/> class 
+            using the specified path.
+            </summary>
+            <param name="filePath">The relative or absolute path of the file.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="filePath"/> is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="filePath"/> is invalid.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.SourceFile.#ctor(System.IO.FileInfo)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLOC.Core.SourceFile"/> class 
+            using the specified <see cref="T:System.IO.FileInfo"/> object.
+            </summary>
+            <param name="file">The <see cref="T:System.IO.FileInfo"/> object that represents 
+            the file.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="filePath"/> is null.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.SourceFile.Serialize(System.Xml.XmlElement)">
+            <summary>
+            Serializes counting informations.
+            </summary>
+            <param name="element">An <see cref="T:System.Xml.XmlElement"/> node 
+            used to write counting informations.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="element"/> is null.
+            </exception>
+        </member>
+        <member name="M:NLOC.Core.SourceFile.Equals(System.Object)">
+            <summary>
+            Determines whether the specified <see cref="T:System.Object"/> is equal to 
+            the current <see cref="T:NLOC.Core.SourceFile"/>.
+            </summary>
+            <param name="obj">The <see cref="T:System.Object"/> to compare with the 
+            current <see cref="T:NLOC.Core.SourceFile"/>.</param>
+            <returns>true if the specified <see cref="T:System.Object"/> is equal to 
+            the current <see cref="T:NLOC.Core.SourceFile"/>; otherwise, false.</returns>
+        </member>
+        <member name="M:NLOC.Core.SourceFile.GetHashCode">
+            <summary>
+            Serves as a hash function for a particular type. <see cref="M:NLOC.Core.SourceFile.GetHashCode"/> is 
+            suitable for use in hashing algorithms and data structures like a hash table.
+            </summary>
+            <returns>A hash code for the current <see cref="T:NLOC.Core.SourceFile"/>.</returns>
+        </member>
+        <member name="M:NLOC.Core.SourceFile.ToString">
+            <summary>
+            Returns the full path of the file.
+            </summary>
+            <returns>The full path of the file.</returns>
+        </member>
+        <member name="P:NLOC.Core.SourceFile.IgnoreCase">
+            <summary>
+            Gets the value whether the file system is incase-sensitive.
+            </summary>
+        </member>
+        <member name="P:NLOC.Core.SourceFile.Name">
+            <summary>Gets the name of the file.</summary>
+        </member>
+        <member name="P:NLOC.Core.SourceFile.Directory">
+            <summary>Gets the full path of the file's directory.</summary>
+        </member>
+        <member name="P:NLOC.Core.SourceFile.Path">
+            <summary>Gets the full path of the file.</summary>
+        </member>
+        <member name="P:NLOC.Core.SourceFile.Extension">
+            <summary>Gets the extension part of the file.</summary>
+        </member>
+        <member name="P:NLOC.Core.SourceFile.Report">
+            <summary>
+            Gets or sets the results of a successful counting.
+            </summary>
+            <value>The <see cref="T:NLOC.Core.CountingResult"/> object of a 
+            successful counting or null.</value>
+        </member>
+    </members>
+</doc>

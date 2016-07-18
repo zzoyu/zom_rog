@@ -1,0 +1,53 @@
+﻿<STATES>
+
+	<MENU>
+		<TEXTURES>
+			<texture filename="./res/img/start.png" id="ui/button/start" />
+      <texture filename="./res/img/quit.png" id="ui/button/quit" />
+      <texture filename="./res/img/title_text.png" id="ui/title/text" />
+      <texture filename="./res/img/char_zombie.png" id="char/zombie" />
+    </TEXTURES>
+		<OBJECTS>
+			<object type="button" x="100" y="200" width="105" height="29" scale="1" textureId="ui/button/start" frame="1" callbackId="0"/>
+      <object type="button" x="100" y="240" width="105" height="29" scale="1" textureId="ui/button/quit" frame="1" callbackId="1"/>
+
+      <object type="image" x="0" y="0" width="720" height="320" scale="1" textureId="ui/title/text" frame="1" motionType="NONE"/>
+      <object type="image" x="100" y="-300" width="32" height="32" scale="24" textureId="char/zombie" frame="4" motionType="RANDOM"/>
+		</OBJECTS>
+	</MENU>
+<!--
+	<PLAY>
+		<TEXTURES>
+			<texture filename="" id="" />
+			<texture filename="" id="" />
+		</TEXTURES>
+		<OBJECTS>
+			<object type="" x="" y="" width="" height="" textureId="" frame=""/>
+			<object type="" x="" y="" width="" height="" textureId="" frame=""/>
+		</OBJECTS>
+	</PLAY>
+
+	<PAUSE>
+		<TEXTURES>
+			<texture filename="./res/img/resume.png" id="button_resume" />
+			<texture filename="./res/img/menu.png" id="button_menu" />
+		</TEXTURES>
+		<OBJECTS>
+			<object type="" x="" y="" width="" height="" textureId="" frame=""/>
+			<object type="" x="" y="" width="" height="" textureId="" frame=""/>
+		</OBJECTS>
+	</PAUSE>
+
+	<GAMEOVER>
+		<TEXTURES>
+			<texture filename="" id="" />	
+			<texture filename="" id="" />
+			<texture filename="" id="" />
+		</TEXTURES>
+		<OBJECTS>
+			<object type="" x="" y="" width="" height="" textureId="" frame=""/>
+			<object type="" x="" y="" width="" height="" textureId="" frame=""/>
+		</OBJECTS>
+	</GAMEOVER>
+-->
+</STATES>
